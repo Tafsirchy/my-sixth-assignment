@@ -1,12 +1,58 @@
 
 //load categorys
-loadCategory = () => {
+const loadCategory = () => {
     fetch("https://openapi.programming-hero.com/api/categories")
     .then(res => res.json()) //promise of json data
     .then((json) => displayCategories(json.categories));
 }
+//plan by category name
+const plantByCategory = (id) => {
+    // const encodedCategory = encodeURIComponent(category);
+    const url = `https://openapi.programming-hero.com/api/category/${id}`
+    fetch(url)
+    // console.log(url);
+    .then((res) => res.json())
+    .then((data) => displayPlantByCategory(data.plants))
+}
+//display plants by categorys 
+const displayPlantByCategory = (plants) => {
+    // console.log(plants);
+    const cardsGrid = document.getElementById("cards-grid");
+    cardsGrid.innerHTML = "";
+    plants.forEach((plant) => {
+      console.log(plant);
+      const plantsDiv = document.createElement("div");
+      plantsDiv.innerHTML = `
+              <div class="card bg-white w-full shadow-lg rounded-lg overflow-hidden">
+              <figure class="bg-gray-200 h-40 flex items-center justify-center">
+                <img class= "" src="${plant.image}" alt="${plant.name}" />
+                <div class="w-full h-full bg-gray-200"></div>
+              </figure>
+              <div class="card-body p-2">
+                <h2 class="card-title font-bold text-lg mb-2">${plant.name}</h2>
+                <p class="line-clamp-3 text-[14px] text-gray-600 mb-3 ">
+                 ${plant.description}
+                </p>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-sm text-[#15803D] px-3 py-1 rounded-full bg-[#dcfce7] font-medium">
+                    ${plant.category}
+                  </span>
+                  <span class="text-lg font-bold text-gray-800">$${plant.price}</span>
+                </div>
+                <div class="card-actions">
+                  <button class="btn bg-[#15803d] w-full rounded-full text-white font-semibold hover:bg-green-600 py-3">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+      `
+      cardsGrid.appendChild(plantsDiv);
+    })
+
+}
 //display categorys
-displayCategories = (category) => {
+const displayCategories = (category) => {
     // 1. get the container
     const categoryContainer = document.getElementById("category-container");
     // categoryContainer.innerHTML = "";
@@ -17,7 +63,7 @@ displayCategories = (category) => {
         const categoryDiv = document.createElement("div");
         // 4. set innerHTML
         categoryDiv.innerHTML = `
-        <button onclick="plantByCetagory(${categ.category_name})" class="text-left p-2 rounded w-full hover:bg-[#15803D] hover:text-white" >${categ.category_name}</button>
+        <button onclick="plantByCategory('${categ.id}')" class="text-left p-2 rounded w-full hover:bg-[#15803D] hover:text-white" >${categ.category_name}</button>
         `
         // 5. append the div to the container
         categoryContainer.appendChild(categoryDiv);
@@ -25,7 +71,7 @@ displayCategories = (category) => {
     })
 }
 //load all cards
-loadAllCards = () => {
+const loadAllCards = () => {
     
     const url = "https://openapi.programming-hero.com/api/plants";
 
@@ -34,7 +80,7 @@ loadAllCards = () => {
     .then(json => displayAllCards(json.plants))  
 }
 //display all cards
-displayAllCards = (cards) => {
+const displayAllCards = (cards) => {
     // console.log(cards);
     // 1. get the container
     const cardContainer = document.getElementById("cards-grid");
@@ -54,7 +100,7 @@ displayAllCards = (cards) => {
               </figure>
               <div class="card-body p-2">
                 <h2 class="card-title font-bold text-lg mb-2">${card.name}</h2>
-                <p class="line-clamp-4 text-[14px] text-gray-600 mb-3 leading-relaxed">
+                <p class="line-clamp-3 text-[14px] text-gray-600 mb-3 ">
                  ${card.description}
                 </p>
                 <div class="flex justify-between items-center mb-4">
