@@ -1,5 +1,16 @@
 let cart = [];
 
+const manageSpinner = (status) => {
+  if(status == true){
+    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("category-container").classList.add("hidden");
+  }
+  else{
+    document.getElementById("spinner").classList.add("hidden");
+    document.getElementById("category-container").classList.remove("hidden");
+  }
+}
+
 //load categorys
 const loadCategory = () => {
     fetch("https://openapi.programming-hero.com/api/categories")
@@ -8,13 +19,24 @@ const loadCategory = () => {
 }
 //plan by category name
 const plantByCategory = (id) => {
+  manageSpinner(true);
     const url = `https://openapi.programming-hero.com/api/category/${id}`;
 
     fetch(url)
     // console.log(url);
     .then((res) => res.json())
-    .then((data) => displayPlantByCategory(data.plants))
+    .then((data) => {
+      activeRemoval();
+      const categoryBtn = document.getElementById(`category-btn-${id}`);
+      categoryBtn.classList.add("active");
+      displayPlantByCategory(data.plants);
+    })
 }
+
+const activeRemoval= () => {
+  const categoryBtns = document.querySelectorAll(".category-btn");
+  categoryBtns.forEach((btn) => btn.classList.remove("active"));
+};
 
 // Add to cart listener
 const AddToCartListeners = () => {
@@ -24,7 +46,11 @@ const AddToCartListeners = () => {
       const plantId = button.dataset.id;
       const plantName = button.dataset.name;
       const plantPrice = parseFloat(button.dataset.price);
+
+      const confirmed = confirm(`Do you want to add "${plantName}" to the cart?`);
+      if(confirmed){
       addToCart(plantId, plantName, plantPrice);
+      }
     });
   });
 };
@@ -102,7 +128,7 @@ const displayCategories = (category) => {
         const categoryDiv = document.createElement("div");
         // 4. set innerHTML
         categoryDiv.innerHTML = `
-        <button id="category-btn-${categ.id}" onclick="plantByCategory('${categ.id}')" class="text-left p-2 rounded w-full hover:bg-[#15803D] hover:text-white" >${categ.category_name}</button>
+        <button id="category-btn-${categ.id}" onclick="plantByCategory('${categ.id}')" class="text-center lg:text-left p-2 rounded w-full hover:bg-[#15803D] hover:text-white category-btn" >${categ.category_name}</button>
         `
         // 5. append the div to the container
         categoryContainer.appendChild(categoryDiv);
@@ -151,6 +177,7 @@ const displayPlantByCategory = (plants) => {
   });
 
   AddToCartListeners();
+  manageSpinner(false);
 
 };
 
@@ -164,6 +191,42 @@ const loadAllCards = () => {
     .then(res => res.json())
     .then(json => displayAllCards(json.plants))  
 }
+
+const loadCategoryDetails = async(id) => {
+  const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayCategoryDetails(details.plants);
+}
+
+const displayCategoryDetails = (plants) => {
+  console.log(plants);
+  const detailsBox = document.getElementById("details-box");
+  detailsBox.innerHTML = `
+  <div class="space-y-4">
+  <h1 class="text-2xl font-bold text-gray-800">${plants.name}</h1>
+  <div class="w-full max-w-[480px] h-[240px] mx-auto">
+    <img
+      class="w-full h-full object-cover rounded-xl shadow-md"
+      src="${plants.image}"
+      alt="${plants.name}"
+    />
+  </div>
+  <div class="flex justify-between items-center">
+    <span
+      class="px-4 py-1 bg-green-100 text-green-700 font-semibold rounded-full text-sm"
+    >
+      ${plants.category}
+    </span>
+    <span class="text-lg font-bold text-gray-800">৳ ${plants.price}</span>
+  </div>
+  <p class="text-gray-600 leading-relaxed text-sm">${plants.description}</p>
+</div>
+
+  `;
+  document.getElementById("category_modal").showModal();
+}
+
 //display all cards
 const displayAllCards = (cards) => {
     // console.log(cards);
@@ -178,13 +241,13 @@ const displayAllCards = (cards) => {
         const cardDiv = document.createElement("div");
            // 4. set innerHTML
         cardDiv.innerHTML = `
-        <div class="card bg-white w-full shadow-lg rounded-lg overflow-hidden">
-              <figure class="bg-gray-200 h-40 flex items-center justify-center">
+        <div class="card bg-white w-full shadow-lg rounded-lg overflow-hidden ">
+              <figure class="bg-gray-200 h-40 flex items-center justify-center rounded-lg m-[6px]">
                 <img class= "" src="${card.image}" alt="${card.name}" />
                 <div class="w-full h-full bg-gray-200"></div>
               </figure>
               <div class="card-body p-2">
-                <h2 class="card-title font-bold text-lg mb-2">${card.name}</h2>
+                <h2 onclick="loadCategoryDetails(${card.id})" class="cursor-pointer card-title font-bold text-lg mb-2">${card.name}</h2>
                 <p class="line-clamp-3 text-[14px] text-gray-600 mb-3 ">
                  ${card.description}
                 </p>
