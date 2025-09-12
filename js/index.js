@@ -1,42 +1,45 @@
 let cart = [];
 
+// manage spinner
 const manageSpinner = (status) => {
-  if(status == true){
-    document.getElementById("spinner").classList.remove("hidden");
-    document.getElementById("category-container").classList.add("hidden");
+  const spinner = document.getElementById("spinner");
+  if (status) {
+    spinner.classList.remove("hidden");
+  } 
+  else {
+    spinner.classList.add("hidden");
   }
-  else{
-    document.getElementById("spinner").classList.add("hidden");
-    document.getElementById("category-container").classList.remove("hidden");
-  }
-}
+};
 
-//load categorys
+// active removal
+const activeRemoval= () => {
+  const categoryBtns = document.querySelectorAll(".category-btn");
+  categoryBtns.forEach((btn) => btn.classList.remove("active"));
+};
+
+// load categorys
 const loadCategory = () => {
     fetch("https://openapi.programming-hero.com/api/categories")
     .then(res => res.json()) //promise of json data
     .then((json) => displayCategories(json.categories));
 }
-//plan by category name
-const plantByCategory = (id) => {
-  manageSpinner(true);
-    const url = `https://openapi.programming-hero.com/api/category/${id}`;
+
+// load all cards
+const loadAllCards = () => {    
+    const url = "https://openapi.programming-hero.com/api/plants";
 
     fetch(url)
-    // console.log(url);
-    .then((res) => res.json())
-    .then((data) => {
-      activeRemoval();
-      const categoryBtn = document.getElementById(`category-btn-${id}`);
-      categoryBtn.classList.add("active");
-      displayPlantByCategory(data.plants);
-    })
+    .then(res => res.json())
+    .then(json => displayAllCards(json.plants))  
 }
 
-const activeRemoval= () => {
-  const categoryBtns = document.querySelectorAll(".category-btn");
-  categoryBtns.forEach((btn) => btn.classList.remove("active"));
-};
+// load category details
+const loadCategoryDetails = async(id) => {
+  const url = `https://openapi.programming-hero.com/api/plant/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayCategoryDetails(details.plants);
+}
 
 // Add to cart listener
 const AddToCartListeners = () => {
@@ -54,7 +57,6 @@ const AddToCartListeners = () => {
     });
   });
 };
-
 
 // item add to the cart
 const addToCart = (id, name, price) => {
@@ -76,7 +78,7 @@ const addToCart = (id, name, price) => {
   updateCartDisplay();
 };
 
-
+// Update cart display
 const updateCartDisplay = () => {
   const cartDetails = document.getElementById("cart-details");
   cartDetails.innerHTML = ""; // Clear previous items
@@ -115,8 +117,24 @@ const removeFromCart = (id) => {
   updateCartDisplay();
 };
 
+// plan by category name
+const plantByCategory = (id) => {
+  manageSpinner(true);
+    const url = `https://openapi.programming-hero.com/api/category/${id}`;
 
-//display categorys
+    fetch(url)
+    // console.log(url);
+    .then((res) => res.json())
+    .then((data) => {
+      activeRemoval();
+      const categoryBtn = document.getElementById(`category-btn-${id}`);
+      categoryBtn.classList.add("active");
+      displayPlantByCategory(data.plants);
+      manageSpinner(false);
+    })
+}
+
+// display categorys
 const displayCategories = (category) => {
     // 1. get the container
     const categoryContainer = document.getElementById("category-container");
@@ -136,8 +154,7 @@ const displayCategories = (category) => {
     })
 }
 
-
-//display plants by categorys 
+// display plants by categorys 
 const displayPlantByCategory = (plants) => {
   const cardsGrid = document.getElementById("cards-grid");
   cardsGrid.innerHTML = "";
@@ -150,7 +167,7 @@ const displayPlantByCategory = (plants) => {
           <img class="" src="${plant.image}" alt="${plant.name}" />
         </figure>
         <div class="card-body p-2">
-          <h2 class="card-title font-bold text-lg mb-2">${plant.name}</h2>
+          <h2 onclick="loadCategoryDetails(${plant.id})" class="card-title cursor-pointer font-bold text-lg mb-2">${plant.name}</h2>
           <p class="line-clamp-3 text-[14px] text-gray-600 mb-3 ">
             ${plant.description}
           </p>
@@ -177,28 +194,10 @@ const displayPlantByCategory = (plants) => {
   });
 
   AddToCartListeners();
-  manageSpinner(false);
 
 };
 
-
-//load all cards
-const loadAllCards = () => {
-    
-    const url = "https://openapi.programming-hero.com/api/plants";
-
-    fetch(url)
-    .then(res => res.json())
-    .then(json => displayAllCards(json.plants))  
-}
-
-const loadCategoryDetails = async(id) => {
-  const url = `https://openapi.programming-hero.com/api/plant/${id}`;
-  const res = await fetch(url);
-  const details = await res.json();
-  displayCategoryDetails(details.plants);
-}
-
+// display category details
 const displayCategoryDetails = (plants) => {
   console.log(plants);
   const detailsBox = document.getElementById("details-box");
@@ -227,7 +226,7 @@ const displayCategoryDetails = (plants) => {
   document.getElementById("category_modal").showModal();
 }
 
-//display all cards
+// display all cards
 const displayAllCards = (cards) => {
     // console.log(cards);
     // 1. get the container
@@ -236,6 +235,7 @@ const displayAllCards = (cards) => {
 
     // 2. loop through the array or get every element
     cards.forEach((card) => {
+
         //    console.log(cards); 
            // 3. create a div
         const cardDiv = document.createElement("div");
@@ -255,7 +255,7 @@ const displayAllCards = (cards) => {
                   <span class="text-sm text-[#15803D] px-3 py-1 rounded-full bg-[#dcfce7] font-medium">
                     ${card.category}
                   </span>
-                  <span class="text-lg font-bold text-gray-800">$${card.price}</span>
+                  <span class="text-lg font-bold text-gray-800">৳${card.price}</span>
                 </div>
                 <div class="card-actions">
                   <button 

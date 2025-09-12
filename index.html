@@ -36,7 +36,7 @@
   </head>
   <body class="">
     <header class="container mx-auto">
-      <div class="navbar bg-[#15803d] shadow-sm">
+      <div class="navbar bg-[#15803d] shadow-sm px-4">
         <div class="navbar-start">
           <div class="dropdown">
             <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -111,15 +111,14 @@
       </div>
     </section>
 
+    
     <section class="bg-[#f0fdf4] container mx-auto">
       <h1 class="text-center text-3xl font-bold mb-8 text-gray-800 pt-6">
           Choose Your Trees
       </h1>
       <div class="container mx-auto p-4">
         
-        <!-- <div id="spinner" class="hidden  inset-0 flex justify-center items-center bg-white bg-opacity-70 z-50">
-          <span class="loading loading-dots loading-xl"></span>
-        </div> -->
+        
         <!-- categories -->
         <div class="flex flex-col lg:flex-row lg:space-x-8">
           <div id="category-container" class="lg:w-1/5">
@@ -132,11 +131,15 @@
           </div>
 
           <!-- All cards / cards -->
-          <div id="card-container container" class="lg:w-3/5">
+          <div id="card-container container" class="lg:w-3/5 relative">
+            <div id="spinner" class="hidden absolute inset-0 flex justify-center items-center bg-white bg-opacity-70 z-50">
+              <span class="loading loading-dots loading-xl"></span>
+            </div>
             <div
               id="cards-grid"
               class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6 lg:mb-0"
             ></div>
+            
           </div>
 
           <!-- cart -->
@@ -144,7 +147,7 @@
             <h2 class="text-[20px] font-bold">Your Cart</h2>
             <div id="cart-details" class="add-cart"></div>
             <div
-              class="flex justify-between text-[16px] font-semibold border-t-1 border-[#c0c0c0]"
+              class="flex justify-between text-[18px] font-semibold border-t-1 border-[#c0c0c0]"
             >
               <h3>Total</h3>
               <h3>৳ <span id="available-balance">0</span></h3>
