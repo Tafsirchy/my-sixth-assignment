@@ -1,169 +1,55 @@
-## WELCOME TO ( সহজ সরল সিম্পল ) ASSIGNMENT-006
-
-### 📅 Deadline For 60 marks: 9th September, 2025 (11:59 pm ⏱️)
-
-### 📅 Deadline For 50 marks : 13th September , 2025 (6:00 pm⏱️)
-
-### 📅 Deadline For 30 marks: Any time after 13the September , 2025 (6:01 pm⏱️).
-
----
-# Green Earth
-
-
-## Private Repository: https://classroom.github.com/a/nVZrg5R9 
-
-## Alternative Private Repository: https://classroom.github.com/a/KCGI14ST 
-
-## Alternative Private Repository: https://classroom.github.com/a/JMuIYqgK 
-
-
----
-🌴 API Endpoints
----
-1. Get 🌴All Plants
-```bash
-https://openapi.programming-hero.com/api/plants
-```
-
-2. Get 🌴All categories <br/>
-```bash
-https://openapi.programming-hero.com/api/categories
-```
-
-
-3. Get 🌴plants by categories <br/>
-```bash
-https://openapi.programming-hero.com/api/category/${id}
-```
-
-```bash
-https://openapi.programming-hero.com/api/category/1
-```
-
-4. Get 🌴Plants Detail <br/>
-
-```bash
-https://openapi.programming-hero.com/api/plant/${id}
-```
-
-```bash
-https://openapi.programming-hero.com/api/plant/1
-```
----
-
-
-
-
-## ✅ Main Requirements 
-
-#### 1) Navbar
-
-- Website **logo/name** on the **left**  
-- **Menu items** in the **center** 
-- **Plant a Tree button** on the **right** 
-
-#### 2) Banner 
-- A **background image**  
-- A **title** and **subtitle**  
-- A **centered button**  
-
-#### 3) About Campaign
-- **Section heading**  
-- **Image on the left**, **text on the right**  
-
-#### 4) Our Impact Section 
-- Show **3 cards** with campaign **statistics**  
-
-#### 5) Plant a Tree Today Section & Footer
-- **Form**: Name, Email, Number of Trees  
-- **Footer** with copyright info 
-
-#### 6) Responsiveness 
-- Website must be **mobile responsive**  
-
----
-#### 7) Create a README file to answer the following question-
-
-
-#### 1) What is the difference between var, let, and const?
-
-#### 2) What is the difference between map(), forEach(), and filter()? 
-
-#### 3) What are arrow functions in ES6?
-
-#### 4) How does destructuring assignment work in ES6?
-
-#### 5) Explain template literals in ES6. How are they different from string concatenation?
-
-## ⚙️ Functionalities 
-
-1) Category Loading 
-Load Tree Categories dynamically on the left side.
-
-2) Category Click → Tree Data 
-On clicking a category: load trees of that category.
-
-Display in a 3-column card layout.
-
-3) Card Contents 
- Each card includes:
-
-        - Image
-
-        -  Name
-
-        - Short description
-
-        - Category
-
-        - Price
-
-        - Add to Cart button
-
-4) Modal on Card Click 
-Clicking a tree name on a card opens a modal with full tree details.
-
-
-##  🧪 Challenges 
-
-
-    1) Add to Cart 
-    Clicking Add to Cart: - Adds the tree to Cart List
-                          - Shows tree name 
-
-    2) Total Calculation 
-    Calculate total price of trees in cart.
-
-    3) Remove from Cart 
-    Clicking ❌ removes tree and deducts price from total.
-
-    4) Loading Spinner
-    Show spinner while data is loading.
-
-    5) Active Button State 
-    Highlight active category button when selected.
-
-
-
-🧰 Technology Stack:
-        
-        HTML
-
-        CSS (Vanilla / Tailwind / DaisyUI)
-
-        JavaScript (Vanilla only, no frameworks)
-
-📌 Rules
-✅ At least 5 meaningful commits
-
-❌ No dummy text or Lorem Ipsum — must use relevant content
-
-
-
-
-
-## 🔗 Submission
-- **Live Link :** YOUR_DEPLOYED_URL_HERE  
-- **GitHub Private Repository:** YOUR_REPO_URL_HERE  
-
----
+# What is the difference between var, let, and const?
+Answer: 
+var:
+1. var is function or global scoped.
+2. var can be redeclared.
+3. var can be updated.
+4. var has function hoisting.
+
+let:
+1. let is block scoped.
+2. let cannot be redeclared.
+3. let can be updated.
+4. let does not have function hoisting.
+
+const:
+1. const is block scoped.
+2. const cannot be redeclared.
+
+
+# What is the difference between map(), forEach(), and filter()?
+Answer:
+map():
+1. Creates and returns a new array by applying a function to each element of the original array.
+2. Do not change the original array.
+
+forEach():
+1.Executes a function on each element of the array but does not return a new array.
+2. 
+
+filter():
+1. Creates and returns a new array containing only the elements that pass a test function.
+2. Doesn’t modify the original array by itself, but since it’s used for side effects, if your callback changes the elements or external variables, the original data can be altered.
+
+
+# What are arrow functions in ES6?
+Answer:
+1. Shorter way to write functions using the => operator.
+2. Single-expression bodies return the value automatically without the return keyword.
+3. Inherits this from the surrounding scope instead of having its own.
+4. Arrow functions don’t have their own arguments object.
+
+# How does destructuring assignment work in ES6?
+Answer:
+1. It helps you quickly take values out of arrays or objects and put them into separate variables.
+2. You can assign elements from an array to variables based on their position.
+3. You can extract properties from an object by matching property names.
+4. You can provide default values if the unpacked value is undefined.
+
+# Explain template literals in ES6. How are they different from string concatenation?
+Answer:
+1. Template literals allow you to embed expressions inside string literals using ${expression}.
+2. They can span multiple lines and include multi-line strings.
+3. They can include expressions and variables directly inside the string.
+4. They are different from string concatenation because they allow for more complex expressions and can include multi-line strings.
+5. Template literals are enclosed in backticks (`` ` ``) instead of single or double quotes.
