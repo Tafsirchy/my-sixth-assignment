@@ -83,7 +83,7 @@ Simply open the `index.html` file in your browser
 ## 🌐 Live Project & Resources
 
 * 🔗 **Live Website:** [https://my-sixth-assignment-tc.netlify.app/](https://my-sixth-assignment-tc.netlify.app/)
-* 💻 **GitHub Repository:** [https://github.com/Tafsirchy/my-sixth-assignment](https://github.com/Tafsirchy/my-sixth-assignment)](h
+* 💻 **GitHub Repository:** [https://github.com/Tafsirchy/my-sixth-assignment](https://github.com/Tafsirchy/my-sixth-assignment)]
 * 📡 **API Source:** [https://openapi.programming-hero.com](https://openapi.programming-hero.com)
 * 🎨 **Tailwind CSS:** [https://tailwindcss.com](https://tailwindcss.com)
 * 🧩 **DaisyUI:** [https://daisyui.com](https://daisyui.com)
